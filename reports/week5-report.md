@@ -1,6 +1,4 @@
 # Week 5 — Ethical Hacking Assessment Report
-**Project:** SecureNotes API — Vulnerability Testing  
-**Intern:** [Your Name]  
 **Date:** July 2026  
 **Type:** Internal Penetration Test (Test Environment)  
 **Target:** http://localhost:3001 (intentionally vulnerable version)
