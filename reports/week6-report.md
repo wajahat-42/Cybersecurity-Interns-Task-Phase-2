@@ -1,6 +1,4 @@
 # Week 6 — Final Security Audit Report
-**Project:** SecureNotes API  
-**Intern:** [Your Name]  
 **Date:** July 2026  
 **Audit Type:** Final Pre-Deployment Security Audit
 
