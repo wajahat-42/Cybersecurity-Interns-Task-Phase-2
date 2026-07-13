@@ -1,0 +1,18 @@
+# Fail2Ban jail configuration for SecureNotes API
+# Place this file at: /etc/fail2ban/jail.local
+# Then restart fail2ban: sudo systemctl restart fail2ban
+
+[secure-notes-auth]
+enabled  = true
+port     = 3000
+protocol = tcp
+filter   = secure-notes
+logpath  = /path/to/secure-notes-api/logs/access.log
+maxretry = 5
+findtime = 900    ; 15 minutes window
+bantime  = 3600   ; Ban for 1 hour
+action   = iptables[name=secure-notes, port=3000, protocol=tcp]
+
+# Email alert on ban (optional — configure your mail server first)
+# action = iptables[name=secure-notes, port=3000, protocol=tcp]
+#          sendmail-whois[name=secure-notes, dest=admin@yourdomain.com]

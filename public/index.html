@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SecureNotes — Security Demo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0f1117; color: #e2e8f0; font-family: 'Segoe UI', sans-serif; min-height: 100vh; }
+    header { background: #1a1d2e; padding: 1rem 2rem; border-bottom: 1px solid #2d3748; display: flex; align-items: center; gap: 1rem; }
+    header h1 { font-size: 1.4rem; color: #68d391; }
+    header span { background: #2d3748; font-size: 0.75rem; padding: 0.2rem 0.5rem; border-radius: 4px; color: #a0aec0; }
+    .container { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+    .card { background: #1a1d2e; border: 1px solid #2d3748; border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    h2 { font-size: 1rem; color: #68d391; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em; }
+    input, textarea { width: 100%; background: #0f1117; border: 1px solid #2d3748; color: #e2e8f0; padding: 0.6rem 0.8rem; border-radius: 4px; margin-bottom: 0.75rem; font-size: 0.95rem; }
+    input:focus, textarea:focus { outline: none; border-color: #68d391; }
+    button { background: #276749; color: #fff; border: none; padding: 0.6rem 1.2rem; border-radius: 4px; cursor: pointer; font-size: 0.9rem; margin-right: 0.5rem; }
+    button:hover { background: #38a169; }
+    button.danger { background: #742a2a; }
+    button.danger:hover { background: #c53030; }
+    .msg { padding: 0.6rem; border-radius: 4px; margin-bottom: 0.75rem; font-size: 0.85rem; }
+    .msg.ok { background: #1c4532; color: #9ae6b4; }
+    .msg.err { background: #742a2a; color: #fed7d7; }
+    .note-item { border: 1px solid #2d3748; border-radius: 6px; padding: 0.9rem; margin-bottom: 0.75rem; display: flex; justify-content: space-between; align-items: flex-start; }
+    .note-item h3 { font-size: 0.95rem; margin-bottom: 0.3rem; }
+    .note-item p { font-size: 0.82rem; color: #a0aec0; }
+    .token-box { background: #0f1117; border: 1px solid #276749; border-radius: 4px; padding: 0.5rem; font-size: 0.7rem; color: #68d391; word-break: break-all; margin-bottom: 0.75rem; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    #app-section { display: none; }
+    label { font-size: 0.82rem; color: #a0aec0; display: block; margin-bottom: 0.2rem; }
+    .row { display: flex; gap: 0.5rem; }
+    .row input { margin-bottom: 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🔒 SecureNotes</h1>
+    <span>Week 4–6 Security Demo</span>
+    <span id="status-badge">Not logged in</span>
+  </header>
+
+  <div class="container">
+    <!-- AUTH SECTION -->
+    <div id="auth-section">
+      <div class="grid">
+        <div class="card">
+          <h2>Register</h2>
+          <div id="reg-msg"></div>
+          <label>Username</label>
+          <input type="text" id="reg-username" placeholder="john_doe" />
+          <label>Email</label>
+          <input type="email" id="reg-email" placeholder="john@example.com" />
+          <label>Password (min 8, uppercase+number)</label>
+          <input type="password" id="reg-password" placeholder="SecurePass1" />
+          <button onclick="register()">Register</button>
+        </div>
+        <div class="card">
+          <h2>Login</h2>
+          <div id="login-msg"></div>
+          <label>Email</label>
+          <input type="email" id="login-email" placeholder="john@example.com" />
+          <label>Password</label>
+          <input type="password" id="login-password" />
+          <button onclick="login()">Login</button>
+          <p style="font-size:0.78rem;color:#718096;margin-top:0.5rem;">5 failed attempts = 15 min lockout (rate-limited at IP level too)</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- APP SECTION (shown after login) -->
+    <div id="app-section">
+      <div class="card">
+        <h2>Session Info</h2>
+        <label>JWT Token (stored in memory, not localStorage)</label>
+        <div class="token-box" id="token-display">—</div>
+        <label>CSRF Token (auto-fetched for state-changing requests)</label>
+        <div class="token-box" id="csrf-display">—</div>
+        <button onclick="logout()">Logout</button>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h2>Create Note</h2>
+          <div id="create-msg"></div>
+          <input type="text" id="note-title" placeholder="Note title" />
+          <textarea id="note-content" placeholder="Note content..." rows="3"></textarea>
+          <button onclick="createNote()">Add Note</button>
+        </div>
+        <div class="card">
+          <h2>Search Notes</h2>
+          <div class="row">
+            <input type="text" id="search-q" placeholder="Keyword..." />
+            <button onclick="searchNotes()">Search</button>
+          </div>
+          <div id="search-results" style="margin-top:0.75rem;"></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>My Notes</h2>
+        <div id="notes-list">Loading...</div>
+      </div>
+    </div>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>
