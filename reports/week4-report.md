@@ -1,6 +1,4 @@
 # Week 4 — Security Implementation Report
-**Project:** SecureNotes API  
-**Intern:** [Your Name]  
 **Date:** July 2026  
 **Supervisor:** [Supervisor Name]
 
