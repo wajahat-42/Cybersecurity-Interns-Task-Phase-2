@@ -1,6 +1,6 @@
 # Week 5 — Ethical Hacking Assessment Report
 **Date:** July 2026  
-**Type:** Internal Penetration Test (Test Environment)  
+**Type:** Internal Penetration Test
 **Target:** http://localhost:3001 (intentionally vulnerable version)
 
 ---
