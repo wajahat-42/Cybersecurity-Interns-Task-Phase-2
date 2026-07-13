@@ -1,5 +1,5 @@
 # Security Hardening Report — SecureNotes API
-# Check Reprts Folder for detaied Reports of each week
+# Check **reports** Folder for detaied reports of each week
 **Project:** SecureNotes API  
 **Date:** July, 2026  
 **Scope:** Intrusion Detection & Monitoring, API Security Hardening, Security Headers & CSP Implementation
